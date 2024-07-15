@@ -1,7 +1,20 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-async function modifyPDF(input, output, userData) {
+async function modifyPDF(input, output) {
+  const userData = {
+    name: 'Abhishek',
+    patientId: 'Patient Id',
+    gender: 'Gender',
+    place: 'Place',
+    age: 'AGE',
+    acStatus: 'A/C status',
+    labNo: 'lab no.',
+    refBy: 'ref by.',
+    dateAndTime: 'date & time',
+    hba1c: '80',
+    eag: '70',
+  };
   try {
     // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
@@ -57,19 +70,8 @@ async function modifyPDF(input, output, userData) {
 }
 
 // Sample user data
-const userData = {
-  name: 'Abhishek',
-  patientId: 'Patient Id',
-  gender: 'Gender',
-  place: 'Place',
-  age: 'AGE',
-  acStatus: 'A/C status',
-  labNo: 'lab no.',
-  refBy: 'ref by.',
-  dateAndTime: 'date & time',
-  hba1c: '80',
-  eag: '70',
-};
+
 
 // Modify the PDF with the specified input and output file paths and user data
-modifyPDF('../PDF/22_glucose-nonvansive.pdf', '../results/22_glucose-nonvansive.pdf', userData);
+// modifyPDF('../PDF/22_glucose-nonvansive.pdf', '../results/22_glucose-nonvansive.pdf', userData);
+module.exports = { modifyPDF, input: './PDF/22_glucose-nonvansive.pdf', output: './PDF/22_glucose-nonvansive.pdf' };

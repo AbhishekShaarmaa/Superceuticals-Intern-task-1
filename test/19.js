@@ -1,19 +1,27 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-async function modifyPDF(input, output, userData) {
+async function modifyPDF(input, output) {
+  const userData = {
+    name: 'Abhishek',
+    patientId: 'Patient Id',
+    gender: 'Gender',
+    place: 'Place',
+    age: 'AGE',
+    acStatus: 'A/C status',
+    labNo: 'lab no.',
+    refBy: 'ref by.',
+    dateAndTime: 'date & time',
+    hba1c: '19',
+    eag: '20',
+  };
+
   try {
-    // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
-
-    // Get the first page of the document
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
-
-    // Get the dimensions of the first page
     const { width, height } = firstPage.getSize();
-
     const fields = [
       { x: 37, y: height - 78, width: 110, height: 10, text: userData.name, color: rgb(0, 0, 0) },
       { x: 195, y: height - 78, width: 110, height: 10, text: userData.patientId, color: rgb(0, 0, 0) },
@@ -34,7 +42,7 @@ async function modifyPDF(input, output, userData) {
         y: field.y,
         width: field.width,
         height: field.height,
-        color: rgb(1, 1, 1), // White color to cover existing text
+        color: rgb(1, 1, 1),
       });
 
       firstPage.drawText(field.text, {
@@ -42,34 +50,16 @@ async function modifyPDF(input, output, userData) {
         y: field.y,
         size: 10,
         font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
-        color: field.color, // Use dynamic color
+        color: field.color,
       });
     }
 
-    // Save the modified PDF to a new file
     const pdfBytes = await pdfDoc.save();
     await writeFile(output, pdfBytes);
-
     console.log('PDF modified successfully');
   } catch (error) {
     console.error('Error modifying PDF:', error);
   }
 }
 
-// Sample user data
-const userData = {
-  name: 'Abhishek',
-  patientId: 'Patient Id',
-  gender: 'Gender',
-  place: 'Place',
-  age: 'AGE',
-  acStatus: 'A/C status',
-  labNo: 'lab no.',
-  refBy: 'ref by.',
-  dateAndTime: 'date & time',
-  hba1c: '19',
-  eag: '20',
-};
-
-// Modify the PDF with the specified input and output file paths and user data
-modifyPDF('../PDF/19.pdf', '../results/19.pdf', userData);
+module.exports = { modifyPDF, input: './PDF/19.pdf', output: './results/19.pdf' };
