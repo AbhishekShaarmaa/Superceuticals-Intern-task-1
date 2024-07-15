@@ -1,7 +1,6 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-<<<<<<< HEAD
 async function modifyPDF(input, output) {
   // Sample user data
   const userData = {
@@ -16,9 +15,6 @@ async function modifyPDF(input, output) {
     dateAndTime: 'date & time',
     Chinkungunya_IgMIgG: '10',
   };
-=======
-async function modifyPDF(input, output, userData) {
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
   try {
     // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
@@ -43,11 +39,6 @@ async function modifyPDF(input, output, userData) {
       { x: 183, y: height - 120, width: 90, height: 10, text: userData.refBy, color: rgb(0, 0, 0) },
       { x: 359, y: height - 120, width: 110, height: 10, text: userData.dateAndTime, color: rgb(0, 0, 0) },
       // Adjusted rectangle for Chinkungunya field
-<<<<<<< HEAD
-
-=======
-     
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
     ];
 
     // Loop through each field and draw the text and background rectangle
@@ -69,7 +60,6 @@ async function modifyPDF(input, output, userData) {
       });
     }
     firstPage.drawRectangle({
-<<<<<<< HEAD
       x: 260,
       y: height - 196,
       width: 80,
@@ -85,23 +75,6 @@ async function modifyPDF(input, output, userData) {
       font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
       color: rgb(0, 0, 0), // Black color for the new text
     });
-=======
-        x: 260,
-        y: height - 196,
-        width: 80,
-        height: 10,
-        color: rgb(1, 1, 1), // White color to cover existing text
-      });
-  
-      // Add new text to the first page
-      firstPage.drawText(userData.Chinkungunya_IgMIgG, {
-        x: 275,
-        y: height - 196,
-        size: 10,
-        font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
-        color: rgb(0, 0, 0), // Black color for the new text
-      });
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
 
     // Save the modified PDF to a new file
     const pdfBytes = await pdfDoc.save();

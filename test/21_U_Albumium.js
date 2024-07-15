@@ -12,11 +12,7 @@ async function modifyPDF(input, output) {
     labNo: 'lab no.',
     refBy: 'ref by.',
     dateAndTime: 'date & time',
-<<<<<<< HEAD
     UAlbumin: '10',
-=======
-    UAlbumin: '30',
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
   };
 
   try {
@@ -42,11 +38,7 @@ async function modifyPDF(input, output) {
       { x: 183, y: height - 118, width: 90, height: 10, text: userData.refBy, color: rgb(0, 0, 0) },
       { x: 359, y: height - 118, width: 110, height: 10, text: userData.dateAndTime, color: rgb(0, 0, 0) },
       { 
-<<<<<<< HEAD
         x: 275, 
-=======
-        x: 270, 
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
         y: height - 196, 
         width: 90, 
         height: 10, 

@@ -1,7 +1,6 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-<<<<<<< HEAD
 async function modifyPDF(input, output) {
   // Sample user data
   const userData = {
@@ -16,9 +15,6 @@ async function modifyPDF(input, output) {
     dateAndTime: 'date & time',
     Ecg: '10',
   };
-=======
-async function modifyPDF(input, output, userData) {
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
   try {
     // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
@@ -41,11 +37,7 @@ async function modifyPDF(input, output, userData) {
       { x: 43, y: height - 120, width: 90, height: 10, text: userData.labNo, color: rgb(0, 0, 0) },
       { x: 183, y: height - 120, width: 90, height: 10, text: userData.refBy, color: rgb(0, 0, 0) },
       { x: 359, y: height - 120, width: 110, height: 10, text: userData.dateAndTime, color: rgb(0, 0, 0) },
-<<<<<<< HEAD
       //   { x: 273, y: height - 196, width: 110, height: 10, text: userData.Ecg, color: rgb(0, 0, 0) },
-=======
-    //   { x: 273, y: height - 196, width: 110, height: 10, text: userData.Ecg, color: rgb(0, 0, 0) },
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
     ];
 
     for (const field of fields) {
@@ -67,7 +59,6 @@ async function modifyPDF(input, output, userData) {
     }
 
     firstPage.drawRectangle({
-<<<<<<< HEAD
       x: 260,
       y: height - 196,
       width: 80,
@@ -83,23 +74,6 @@ async function modifyPDF(input, output, userData) {
       font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
       color: rgb(0, 0, 0), // Black color for the new text
     });
-=======
-        x: 260,
-        y: height - 196,
-        width: 80,
-        height: 10,
-        color: rgb(1, 1, 1), // White color to cover existing text
-      });
-  
-      // Add new text to the first page
-      firstPage.drawText(userData.Ecg, {
-        x: 275,
-        y: height - 196,
-        size: 10,
-        font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
-        color: rgb(0, 0, 0), // Black color for the new text
-      });
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
 
     // Save the modified PDF to a new file
     const pdfBytes = await pdfDoc.save();
@@ -111,26 +85,7 @@ async function modifyPDF(input, output, userData) {
   }
 }
 
-<<<<<<< HEAD
 
 
 // Modify the PDF with the specified input and output file paths and user data
 module.exports = { modifyPDF, input: './PDF/32_electro_cardiogram.pdf', output: './results/32_electro_cardiogram.pdf' };
-=======
-// Sample user data
-const userData = {
-  name: 'Abhishek',
-  patientId: 'Patient Id',
-  gender: 'Gender',
-  place: 'Place',
-  age: 'AGE',
-  acStatus: 'A/C status',
-  labNo: 'lab no.',
-  refBy: 'ref by.',
-  dateAndTime: 'date & time',
-  Ecg: '10',
-};
-
-// Modify the PDF with the specified input and output file paths and user data
-modifyPDF('../PDF/32_electro_cardiogram.pdf', '../results/32_electro_cardiogram.pdf', userData);
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5

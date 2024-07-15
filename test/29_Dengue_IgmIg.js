@@ -1,7 +1,6 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-<<<<<<< HEAD
 async function modifyPDF(input, output) {
   // Sample user data
   const userData = {
@@ -17,9 +16,6 @@ async function modifyPDF(input, output) {
     Spneumonia: '10',
   };
 
-=======
-async function modifyPDF(input, output, userData) {
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
   try {
     // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
@@ -73,25 +69,6 @@ async function modifyPDF(input, output, userData) {
   }
 }
 
-<<<<<<< HEAD
 
 // Modify the PDF with the specified input and output file paths and user data
 module.exports = { modifyPDF, input: './PDF/29_Dengue_IgmIg.pdf', output: './results/29_Dengue_IgmIg.pdf' };
-=======
-// Sample user data
-const userData = {
-  name: 'Abhishek',
-  patientId: 'Patient Id',
-  gender: 'Gender',
-  place: 'Place',
-  age: 'AGE',
-  acStatus: 'A/C status',
-  labNo: 'lab no.',
-  refBy: 'ref by.',
-  dateAndTime: 'date & time',
-  Spneumonia: '10',
-};
-
-// Modify the PDF with the specified input and output file paths and user data
-modifyPDF('../PDF/29_Dengue_IgmIg.pdf', '../results/29_Dengue_IgmIg.pdf', userData);
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
