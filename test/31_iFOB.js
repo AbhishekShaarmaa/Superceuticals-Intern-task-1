@@ -86,24 +86,5 @@ async function modifyPDF(input, output) {
   }
 }
 
-<<<<<<< HEAD
 // Modify the PDF with the specified input and output file paths and user data
 module.exports = { modifyPDF, input: './PDF/31_iFOB.pdf', output: './results/31_iFOB.pdf' };
-=======
-// Sample user data
-const userData = {
-  name: 'Abhishek',
-  patientId: 'Patient Id',
-  gender: 'Gender',
-  place: 'Place',
-  age: 'AGE',
-  acStatus: 'A/C status',
-  labNo: 'lab no.',
-  refBy: 'ref by.',
-  dateAndTime: 'date & time',
-  Chinkungunya_IgMIgG: '10',
-};
-
-// Modify the PDF with the specified input and output file paths and user data
-modifyPDF('../PDF/31_iFOB.pdf', '../results/31_iFOB.pdf', userData);
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
