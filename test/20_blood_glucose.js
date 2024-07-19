@@ -104,28 +104,28 @@ async function modifyPDF(input, output, testFields) {
 
     // Define field positions and sizes
     const fields = [
-      { x: 37, y: height - 78, width: 110, height: 10, text: testFields.name, color: rgb(0, 0, 0) },
-      { x: 195, y: height - 78, width: 110, height: 10, text: testFields.patientId, color: rgb(0, 0, 0) },
-      { x: 339, y: height - 78, width: 110, height: 10, text: testFields.gender, color: rgb(0, 0, 0) },
+      { x: 37, y: height - 76, width: 110, height: 10, text: testFields.name, color: rgb(0, 0, 0) },
+      { x: 195, y: height - 76, width: 110, height: 10, text: testFields.patientId, color: rgb(0, 0, 0) },
+      { x: 339, y: height - 76, width: 110, height: 10, text: testFields.gender, color: rgb(0, 0, 0) },
       { x: 37, y: height - 98, width: 110, height: 10, text: testFields.place, color: rgb(0, 0, 0) },
       { x: 172, y: height - 98, width: 110, height: 10, text: testFields.age, color: rgb(0, 0, 0) },
       { x: 351, y: height - 98, width: 110, height: 10, text: testFields.acStatus, color: rgb(0, 0, 0) },
       { x: 43, y: height - 120, width: 90, height: 10, text: testFields.labNo, color: rgb(0, 0, 0) },
       { x: 183, y: height - 118, width: 90, height: 10, text: testFields.refBy, color: rgb(0, 0, 0) },
-      { x: 359, y: height - 118, width: 110, height: 10, text: testFields.dateAndTime, color: rgb(0, 0, 0) },
+      { x: 359, y: height - 118, width: 110, height: 12, text: testFields.dateAndTime, color: rgb(0, 0, 0) },
       { 
         x: 308, 
-        y: height - 225, 
-        width: 90, 
-        height: 10, 
+        y: height - 223, 
+        width: 50, 
+        height: 11, 
         text: testFields.PostPrandialGlucose, 
         color: (parseFloat(testFields.PostPrandialGlucose) < 70 || parseFloat(testFields.PostPrandialGlucose) > 140) ? rgb(1, 0, 0) : rgb(0, 0, 0) 
       },
       { 
         x: 308, 
-        y: height - 195, 
-        width: 90, 
-        height: 10, 
+        y: height - 197, 
+        width: 50, 
+        height: 11, 
         text: testFields.RandomGlucose, 
         color: (parseFloat(testFields.RandomGlucose) < 70 || parseFloat(testFields.RandomGlucose) > 100) ? rgb(1, 0, 0) : rgb(0, 0, 0) 
       },
@@ -149,6 +149,8 @@ async function modifyPDF(input, output, testFields) {
         color: field.color, // Use dynamic color
       });
     }
+
+    
 
     // Save the modified PDF to a new file
     const pdfBytes = await pdfDoc.save();
