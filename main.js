@@ -1,19 +1,21 @@
-
-
 const { PDFDocument } = require('pdf-lib');
-const { readFile, writeFile } = require('fs/promises');
+const { readFile, writeFile, readdir, unlink } = require('fs/promises');
 const path = require('path');
 
 async function processAndCombinePDFs(userData) {
     try {
-        const userId = userData.userData.patientId; 
+        const userId = userData.userData.patientId;
         const tests = userData.categoryName;
         const modifiedPdfPaths = [];
 
-        // Iterate over each test in the JSON object
-        for (const [testName, testFields] of Object.entries(tests)) {
+        const resultsDir = path.join(__dirname, './results');
+
+
+
+        // Iterate over each test in the JSON object and modify PDFs
+        await Promise.all(Object.entries(tests).map(async ([testName, testFields]) => {
             const inputPdfPath = path.join(__dirname, `./PDF/${testName.replace('_', '_')}.pdf`);
-            const outputPdfPath = path.join(__dirname, `./results/${testName.replace('_', '_')}.pdf`);
+            const outputPdfPath = path.join(resultsDir, `${testName.replace('_', '_')}.pdf`);
 
             const { modifyPDF } = await import(`./test/${testName.replace('_', '_')}.js`);
 
@@ -25,7 +27,7 @@ async function processAndCombinePDFs(userData) {
 
             // Store the path of the modified PDF
             modifiedPdfPaths.push(outputPdfPath);
-        }
+        }));
 
         // Combine all modified PDFs into a single PDF
         const combinedPdfDoc = await PDFDocument.create();
@@ -42,10 +44,15 @@ async function processAndCombinePDFs(userData) {
 
         // Save the combined PDF
         const combinedPdfBytes = await combinedPdfDoc.save();
-        const combinedOutputPath = path.join(__dirname, `./results/${userId}_combined.pdf`);
+        const combinedOutputPath = path.join(resultsDir, `${userId}_combined.pdf`);
         await writeFile(combinedOutputPath, combinedPdfBytes);
 
         console.log('Combined PDF created successfully:', combinedOutputPath);
+
+        // Delete individual modified PDFs
+        await Promise.all(modifiedPdfPaths.map(pdfPath => unlink(pdfPath)));
+
+        console.log('Individual modified PDFs deleted successfully.');
     } catch (error) {
         console.error('Error processing and combining PDFs:', error);
     }
@@ -54,8 +61,8 @@ async function processAndCombinePDFs(userData) {
 // Sample JSON object for testing
 const sampleData = {
     userData: {
-        name: 'sankalp',
-        patientId: 'Patient Id', 
+        name: 'abhishek',
+        patientId: '5',
         gender: 'male',
         place: 'Place',
         age: '21',
@@ -70,12 +77,14 @@ const sampleData = {
             PostPrandialGlucose: '60',
         },
         "21_U_Albumium": {
-            dateAndTime: 'date & time',
             UAlbumin: '10',
+        },
+        "22_glucose-nonvansive": {
+            hba1c: '2',
+            eag: '10',
         }
     }
 };
 
 // Call the function with the sample data
 processAndCombinePDFs(sampleData);
-

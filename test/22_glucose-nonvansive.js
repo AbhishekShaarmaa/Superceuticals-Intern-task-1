@@ -1,24 +1,8 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-<<<<<<< HEAD
-async function modifyPDF(input, output) {
-  const userData = {
-    name: 'Abhishek',
-    patientId: 'Patient Id',
-    gender: 'Gender',
-    place: 'Place',
-    age: 'AGE',
-    acStatus: 'A/C status',
-    labNo: 'lab no.',
-    refBy: 'ref by.',
-    dateAndTime: 'date & time',
-    hba1c: '80',
-    eag: '70',
-  };
-=======
-async function modifyPDF(input, output, userData) {
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
+async function modifyPDF(input, output , testFields) {
+
   try {
     // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
@@ -32,17 +16,17 @@ async function modifyPDF(input, output, userData) {
     const { width, height } = firstPage.getSize();
 
     const fields = [
-      { x: 37, y: height - 78, width: 110, height: 10, text: userData.name, color: rgb(0, 0, 0) },
-      { x: 195, y: height - 78, width: 110, height: 10, text: userData.patientId, color: rgb(0, 0, 0) },
-      { x: 339, y: height - 78, width: 110, height: 10, text: userData.gender, color: rgb(0, 0, 0) },
-      { x: 37, y: height - 98, width: 110, height: 10, text: userData.place, color: rgb(0.5, 0, 0) },
-      { x: 172, y: height - 98, width: 110, height: 10, text: userData.age, color: rgb(0, 0, 0) },
-      { x: 351, y: height - 98, width: 110, height: 10, text: userData.acStatus, color: rgb(0, 0, 0) },
-      { x: 43, y: height - 120, width: 90, height: 10, text: userData.labNo, color: rgb(0, 0, 0) },
-      { x: 183, y: height - 120, width: 90, height: 10, text: userData.refBy, color: rgb(0, 0, 0) },
-      { x: 359, y: height - 120, width: 110, height: 10, text: userData.dateAndTime, color: rgb(0, 0, 0) },
-      { x: 338, y: height - 225, width: 90, height: 10, text: userData.hba1c, color: rgb(0, 0, 0) },
-      { x: 338, y: height - 195, width: 90, height: 10, text: userData.eag, color: rgb(0, 0, 0) },
+      { x: 37, y: height - 78, width: 110, height: 10, text: testFields.name, color: rgb(0, 0, 0) },
+      { x: 195, y: height - 78, width: 110, height: 10, text: testFields.patientId, color: rgb(0, 0, 0) },
+      { x: 339, y: height - 78, width: 110, height: 10, text: testFields.gender, color: rgb(0, 0, 0) },
+      { x: 37, y: height - 98, width: 110, height: 10, text: testFields.place, color: rgb(0.5, 0, 0) },
+      { x: 172, y: height - 98, width: 110, height: 10, text: testFields.age, color: rgb(0, 0, 0) },
+      { x: 351, y: height - 98, width: 110, height: 10, text: testFields.acStatus, color: rgb(0, 0, 0) },
+      { x: 43, y: height - 120, width: 90, height: 10, text: testFields.labNo, color: rgb(0, 0, 0) },
+      { x: 183, y: height - 120, width: 90, height: 10, text: testFields.refBy, color: rgb(0, 0, 0) },
+      { x: 359, y: height - 120, width: 110, height: 10, text: testFields.dateAndTime, color: rgb(0, 0, 0) },
+      { x: 338, y: height - 225, width: 40, height: 10, text: testFields.hba1c, color: rgb(0.5, 0, 0) },
+      { x: 338, y: height - 197, width: 40, height: 15, text: testFields.eag, color: rgb(0.5, 0, 0) },
     ];
 
     for (const field of fields) {
@@ -51,7 +35,7 @@ async function modifyPDF(input, output, userData) {
         y: field.y,
         width: field.width,
         height: field.height,
-        color: rgb(1, 1, 1), // White color to cover existing text
+        color: rgb(1, 1, 1),
       });
 
       firstPage.drawText(field.text, {
@@ -59,42 +43,22 @@ async function modifyPDF(input, output, userData) {
         y: field.y,
         size: 10,
         font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
-        color: field.color, // Use dynamic color
+        color: field.color, 
       });
     }
 
-    // Save the modified PDF to a new file
+    
     const pdfBytes = await pdfDoc.save();
     await writeFile(output, pdfBytes);
 
-    console.log('PDF modified successfully');
+    console.log('PDF modified successfully:', output);
   } catch (error) {
     console.error('Error modifying PDF:', error);
   }
 }
 
-// Sample user data
-<<<<<<< HEAD
 
 
-// Modify the PDF with the specified input and output file paths and user data
-// modifyPDF('../PDF/22_glucose-nonvansive.pdf', '../results/22_glucose-nonvansive.pdf', userData);
-module.exports = { modifyPDF, input: './PDF/22_glucose-nonvansive.pdf', output: './PDF/22_glucose-nonvansive.pdf' };
-=======
-const userData = {
-  name: 'Abhishek',
-  patientId: 'Patient Id',
-  gender: 'Gender',
-  place: 'Place',
-  age: 'AGE',
-  acStatus: 'A/C status',
-  labNo: 'lab no.',
-  refBy: 'ref by.',
-  dateAndTime: 'date & time',
-  hba1c: '80',
-  eag: '70',
-};
 
-// Modify the PDF with the specified input and output file paths and user data
-modifyPDF('../PDF/22_glucose-nonvansive.pdf', '../results/22_glucose-nonvansive.pdf', userData);
->>>>>>> 0edee28fe42ce9cd266cd795edf83f40de36a5a5
+
+module.exports = { modifyPDF };

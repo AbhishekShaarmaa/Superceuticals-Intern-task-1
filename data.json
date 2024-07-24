@@ -1,0 +1,15 @@
+{
+    "userId": "1243234",
+    "categoryName": {
+        "test1": {
+            "test1field1": "int value",
+            "test1field2": "int value",
+            "test1field3": "int value"
+        },
+        "test2": {
+            "test2field1": "int value",
+            "test2field2": "int value",
+            "test2field3": "int value"
+        }
+    }
+}
