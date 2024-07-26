@@ -1,20 +1,8 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-async function modifyPDF(input, output) {
-  // Sample user data
-  const userData = {
-    name: 'Abhishek',
-    patientId: 'Patient Id',
-    gender: 'Gender',
-    place: 'Place',
-    age: 'AGE',
-    acStatus: 'A/C status',
-    labNo: 'lab no.',
-    refBy: 'ref by.',
-    dateAndTime: 'date & time',
-    Ecg: '10',
-  };
+async function modifyPDF(input, output,testFields) {
+
   try {
     // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
@@ -28,16 +16,16 @@ async function modifyPDF(input, output) {
     const { width, height } = firstPage.getSize();
 
     const fields = [
-      { x: 37, y: height - 78, width: 110, height: 10, text: userData.name, color: rgb(0, 0, 0) },
-      { x: 195, y: height - 78, width: 110, height: 10, text: userData.patientId, color: rgb(0, 0, 0) },
-      { x: 339, y: height - 78, width: 110, height: 10, text: userData.gender, color: rgb(0, 0, 0) },
-      { x: 37, y: height - 98, width: 110, height: 10, text: userData.place, color: rgb(0.5, 0, 0) },
-      { x: 172, y: height - 98, width: 110, height: 10, text: userData.age, color: rgb(0, 0, 0) },
-      { x: 351, y: height - 98, width: 110, height: 10, text: userData.acStatus, color: rgb(0, 0, 0) },
-      { x: 43, y: height - 120, width: 90, height: 10, text: userData.labNo, color: rgb(0, 0, 0) },
-      { x: 183, y: height - 120, width: 90, height: 10, text: userData.refBy, color: rgb(0, 0, 0) },
-      { x: 359, y: height - 120, width: 110, height: 10, text: userData.dateAndTime, color: rgb(0, 0, 0) },
-      //   { x: 273, y: height - 196, width: 110, height: 10, text: userData.Ecg, color: rgb(0, 0, 0) },
+      { x: 37, y: height - 78, width: 110, height: 10, text: testFields.name, color: rgb(0, 0, 0) },
+      { x: 195, y: height - 78, width: 110, height: 10, text: testFields.patientId, color: rgb(0, 0, 0) },
+      { x: 339, y: height - 78, width: 110, height: 10, text: testFields.gender, color: rgb(0, 0, 0) },
+      { x: 37, y: height - 98, width: 110, height: 10, text: testFields.place, color: rgb(0.5, 0, 0) },
+      { x: 172, y: height - 98, width: 110, height: 10, text: testFields.age, color: rgb(0, 0, 0) },
+      { x: 351, y: height - 98, width: 110, height: 10, text: testFields.acStatus, color: rgb(0, 0, 0) },
+      { x: 43, y: height - 120, width: 90, height: 10, text: testFields.labNo, color: rgb(0, 0, 0) },
+      { x: 183, y: height - 120, width: 90, height: 10, text: testFields.refBy, color: rgb(0, 0, 0) },
+      { x: 359, y: height - 120, width: 110, height: 10, text: testFields.dateAndTime, color: rgb(0, 0, 0) },
+      //   { x: 273, y: height - 196, width: 110, height: 10, text: testFields.Ecg, color: rgb(0, 0, 0) },
     ];
 
     for (const field of fields) {
@@ -67,7 +55,7 @@ async function modifyPDF(input, output) {
     });
 
     // Add new text to the first page
-    firstPage.drawText(userData.Ecg, {
+    firstPage.drawText(testFields.Ecg, {
       x: 275,
       y: height - 196,
       size: 10,
@@ -88,4 +76,6 @@ async function modifyPDF(input, output) {
 
 
 // Modify the PDF with the specified input and output file paths and user data
-module.exports = { modifyPDF, input: './PDF/32_electro_cardiogram.pdf', output: './results/32_electro_cardiogram.pdf' };
+// module.exports = { modifyPDF, input: './PDF/32_electro_cardiogram.pdf', output: './results/32_electro_cardiogram.pdf' };
+
+module.exports = { modifyPDF };

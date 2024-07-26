@@ -62,7 +62,7 @@ async function processAndCombinePDFs(userData) {
 const sampleData = {
     userData: {
         name: 'abhishek',
-        patientId: '5',
+        patientId: '6',
         gender: 'male',
         place: 'Place',
         age: '21',
@@ -72,16 +72,19 @@ const sampleData = {
         dateAndTime: 'date & time',
     },
     categoryName: {
-        "20_blood_glucose": {
+        "blood_glucose": {
             RandomGlucose: '80',
             PostPrandialGlucose: '60',
         },
-        "21_U_Albumium": {
+        "U_Albumium": {
             UAlbumin: '10',
         },
-        "22_glucose-nonvansive": {
+        "glucose-nonvansive": {
             hba1c: '2',
             eag: '10',
+        },
+        "covid-antigent":{
+            covidantigen:'10'
         }
     }
 };

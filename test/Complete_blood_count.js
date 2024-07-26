@@ -1,7 +1,7 @@
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 const { readFile, writeFile } = require('fs/promises');
 
-async function modifyPDF(input, output, userData) {
+async function modifyPDF(input, output, testFields) {
   try {
     // Load the existing PDF document
     const existingPdfBytes = await readFile(input);
@@ -21,15 +21,15 @@ async function modifyPDF(input, output, userData) {
     console.log(`Second page dimensions: width = ${width1}, height = ${height1}`);
 
     const fields = [
-      { x: 37, y: height - 78, width: 110, height: 10, text: userData.name, color: rgb(0, 0, 0) },
-      { x: 195, y: height - 78, width: 110, height: 10, text: userData.patientId, color: rgb(0, 0, 0) },
-      { x: 339, y: height - 78, width: 110, height: 10, text: userData.gender, color: rgb(0, 0, 0) },
-      { x: 37, y: height - 98, width: 110, height: 10, text: userData.place, color: rgb(0.5, 0, 0) },
-      { x: 172, y: height - 98, width: 110, height: 10, text: userData.age, color: rgb(0, 0, 0) },
-      { x: 351, y: height - 98, width: 110, height: 10, text: userData.acStatus, color: rgb(0, 0, 0) },
-      { x: 43, y: height - 120, width: 90, height: 10, text: userData.labNo, color: rgb(0, 0, 0) },
-      { x: 183, y: height - 120, width: 90, height: 10, text: userData.refBy, color: rgb(0, 0, 0) },
-      { x: 359, y: height - 120, width: 110, height: 10, text: userData.dateAndTime, color: rgb(0, 0, 0) },
+      { x: 37, y: height - 78, width: 110, height: 10, text: testFields.name, color: rgb(0, 0, 0) },
+      { x: 195, y: height - 78, width: 110, height: 10, text: testFields.patientId, color: rgb(0, 0, 0) },
+      { x: 339, y: height - 78, width: 110, height: 10, text: testFields.gender, color: rgb(0, 0, 0) },
+      { x: 37, y: height - 98, width: 110, height: 10, text: testFields.place, color: rgb(0.5, 0, 0) },
+      { x: 172, y: height - 98, width: 110, height: 10, text: testFields.age, color: rgb(0, 0, 0) },
+      { x: 351, y: height - 98, width: 110, height: 10, text: testFields.acStatus, color: rgb(0, 0, 0) },
+      { x: 43, y: height - 120, width: 90, height: 10, text: testFields.labNo, color: rgb(0, 0, 0) },
+      { x: 183, y: height - 120, width: 90, height: 10, text: testFields.refBy, color: rgb(0, 0, 0) },
+      { x: 359, y: height - 120, width: 110, height: 10, text: testFields.dateAndTime, color: rgb(0, 0, 0) },
     ];
 
     for (const field of fields) {
@@ -92,15 +92,15 @@ async function modifyPDF(input, output, userData) {
 
     // Define fields for the second page
     const fields2 = [
-      { x: 37, y: height1 - 78, width: 110, height: 10, text: userData.name, color: rgb(0, 0, 0) },
-      { x: 195, y: height1 - 78, width: 110, height: 10, text: userData.patientId, color: rgb(0, 0, 0) },
-      { x: 339, y: height1 - 78, width: 110, height: 10, text: userData.gender, color: rgb(0, 0, 0) },
-      { x: 37, y: height1 - 98, width: 110, height: 10, text: userData.place, color: rgb(0.5, 0, 0) },
-      { x: 172, y: height1 - 98, width: 110, height: 10, text: userData.age, color: rgb(0, 0, 0) },
-      { x: 351, y: height1 - 98, width: 110, height: 10, text: userData.acStatus, color: rgb(0, 0, 0) },
-      { x: 43, y: height1 - 120, width: 90, height: 10, text: userData.labNo, color: rgb(0, 0, 0) },
-      { x: 183, y: height1 - 120, width: 90, height: 10, text: userData.refBy, color: rgb(0, 0, 0) },
-      { x: 359, y: height1 - 120, width: 110, height: 10, text: userData.dateAndTime, color: rgb(0, 0, 0) },
+      { x: 37, y: height1 - 78, width: 110, height: 10, text: testFields.name, color: rgb(0, 0, 0) },
+      { x: 195, y: height1 - 78, width: 110, height: 10, text: testFields.patientId, color: rgb(0, 0, 0) },
+      { x: 339, y: height1 - 78, width: 110, height: 10, text: testFields.gender, color: rgb(0, 0, 0) },
+      { x: 37, y: height1 - 98, width: 110, height: 10, text: testFields.place, color: rgb(0.5, 0, 0) },
+      { x: 172, y: height1 - 98, width: 110, height: 10, text: testFields.age, color: rgb(0, 0, 0) },
+      { x: 351, y: height1 - 98, width: 110, height: 10, text: testFields.acStatus, color: rgb(0, 0, 0) },
+      { x: 43, y: height1 - 120, width: 90, height: 10, text: testFields.labNo, color: rgb(0, 0, 0) },
+      { x: 183, y: height1 - 120, width: 90, height: 10, text: testFields.refBy, color: rgb(0, 0, 0) },
+      { x: 359, y: height1 - 120, width: 110, height: 10, text: testFields.dateAndTime, color: rgb(0, 0, 0) },
     ];
 
     // Draw fields on the second page
@@ -162,22 +162,10 @@ async function modifyPDF(input, output, userData) {
   }
 }
 
-// Test data
-const userData = {
-  name: 'John Doe',
-  patientId: '12345',
-  gender: 'Male',
-  place: 'Cityville',
-  age: '30',
-  acStatus: 'Active',
-  labNo: '67890',
-  refBy: 'Dr. Smith',
-  dateAndTime: '2023-12-31 10:00',
-  Ecg: 'Normal',
-};
 
-const inputPath = 'path/to/input.pdf';
-const outputPath = 'path/to/output.pdf';
+
+
 
 // Call the function to modify the PDF
-modifyPDF('../PDF/33_Complete_blood_count.pdf', '../results/33_Complete_blood_count.pdf', userData);
+// modifyPDF('../PDF/33_Complete_blood_count.pdf', '../results/33_Complete_blood_count.pdf', testFields);
+module.exports = { modifyPDF };
